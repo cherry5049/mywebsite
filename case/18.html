@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			user-select:none;
+		}
+
+		ul,li{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		#piano{
+			width: 400px;
+			overflow: hidden;
+			margin: 30px auto;
+		}
+
+		li{
+			width: 45px;
+			height: 180px;
+			border: 2px solid #ccc;
+			float: left;
+			margin-left: 1px;
+			transform-origin: top center;
+			text-align: center;
+			line-height: 330px;
+			color: #EEE;
+		}
+	</style>
+</head>
+<body>
+<ul id="piano">
+	<li>1</li>
+	<li>2</li>
+	<li>3</li>
+	<li>4</li>
+	<li>5</li>
+	<li>6</li>
+	<li>7</li>
+	<li>8</li>
+</ul>
+<script src="statics/sound.js"></script>
+<script>
+	var aLi = document.querySelectorAll('li');
+
+
+	document.onkeydown = function(ev){
+		var code = ev.keyCode;
+
+		playSound(code);
+	}
+
+	document.onkeyup = function(ev){
+		var code = ev.keyCode;
+
+		aLi[code-49].style.transform = '';
+	}
+
+	aLi.forEach(function(oLi,index){
+		oLi.onmousedown = function(){
+			playSound(index + 49)
+		}
+
+		oLi.onmouseup = function(){
+			aLi[index].style.transform = '';
+		}
+	})
+
+	function playSound(code){
+		new Audio(oggSound[`sound${code}`]).play();
+
+		aLi[code-49].style.transform = 'perspective(800px) rotateX(-10deg)'
+
+
+	}
+</script>	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

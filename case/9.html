@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="800" height="600"></canvas>
+	<script>
+		var canvas = document.getElementById('canvas');
+
+		var ctx = canvas.getContext('2d');
+
+		var oImage = new Image();
+		oImage.src = 'statics/2d-2.png';
+
+		var index = 0;
+		var direction = 0;
+		var position = {
+			x:300,
+			y:100
+		}
+
+		var forward = false;
+		var backward = false;
+		var left = false;
+		var right = false;
+
+		oImage.onload = function(){
+			setInterval(function(){
+				ctx.clearRect(0,0,canvas.width,canvas.height)
+				ctx.drawImage(oImage,
+					(index%4)*96,direction*96,96,96,
+					position.x,position.y,96,96
+				)
+			},16)
+
+			setInterval(function(){
+				index++
+			},80)
+		}
+
+		document.onkeydown = function({keyCode}){
+			forward = false;
+			backward = false;
+			left = false;
+			right = false;
+
+			if( keyCode == 37 ){
+				direction = 1
+				left = true;
+			} else if( keyCode == 38 ){
+				direction = 3
+				backward = true;
+			} else if( keyCode == 39 ){
+				direction = 2
+				right = true;
+			} else if( keyCode == 40 ){
+				forward = true;
+				direction = 0;
+			}
+		}
+
+		setInterval(function(){
+			if( forward ){
+				position.y += 5
+			} else if( backward ){
+				position.y -= 5
+			} else if( left ){
+				position.x -= 5
+			} else if( right ){
+				position.x += 5
+			}
+		},80)
+
+		document.onkeyup = function(){
+			forward = false;
+			backward = false;
+			left = false;
+			right = false;
+		}
+	</script>
+</body>
+</html>

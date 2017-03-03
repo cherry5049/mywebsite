@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>网易幻灯片</title>
+<style>
+*{ margin:0; padding:0; list-style:none;}
+#box{ width:600px; height:300px; background:#ccc; margin:10px auto; position:relative; overflow:hidden;}
+#box ul{ position:absolute; left:0; top:0;}
+#box ul li{ width:600px; height:300px; float:left; line-height:300px; text-align:center; font-size:50px; color:#000; font-weight:bold; font-family:微软雅黑;}
+
+#box ol{ position:absolute; width:430px; left:50%; margin-left:-215px; bottom:10px;}
+#box ol li{ width:80px; height:20px; background:#000; float:left; margin:3px; position:relative;}
+#box ol li span{ position:absolute; left:0; width:0px; background:#fff; top:0; height:100%;}
+#box ul .l1{
+	background: url(img/6.png);
+}
+#box ul .l2{
+	background: url(img/7.png);
+}
+#box ul .l3{
+	background: url(img/8.png);
+}
+#box ul .l4{
+	background: url(img/9.png);
+}
+#box ul .l5{
+	background: url(img/10.png);
+}
+</style>
+<script src="onMove.js"></script>
+<script>
+window.onload=function(){
+	var oBox=document.getElementById('box');
+	var oUl=oBox.children[0];
+	var aLi=oUl.children;
+	var oOl=oBox.children[1];
+	var aBtn=oOl.children;
+	var aSpan=oOl.getElementsByTagName('span');
+	
+	oUl.style.width=aLi[0].offsetWidth*aLi.length+'px';
+	
+	var n=0;
+	
+	function next(){
+		for(i=0;i<aSpan.length;i++){
+			aSpan[i].style.width=0;	
+		}
+		move(aSpan[n],{width:80},{complete:function(){
+			n++;
+			if(n==aSpan.length){
+				n=0;	
+			}
+			move(oUl,{left:-n*aLi[0].offsetWidth},{complete:next});	
+		}})	
+	}
+   next();
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul>
+    	<li class="l1">0</li>
+        <li class="l2">1</li>
+        <li class="l3">2</li>
+        <li class="l4">3</li>
+        <li class="l5">4</li>
+    </ul>
+    <ol>
+    	<li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+    </ol>
+</div>
+</body>
+</html>

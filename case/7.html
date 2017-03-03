@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul,li{
+			margin:0;
+			padding:0;
+			list-style: none;
+		}
+		ul{
+			height:300px;
+			width:300px;
+			margin:50px auto;
+		}
+		li{
+			height:96px;
+			width:96px;
+			background-size:cover;
+			float:left;
+			position:relative;
+			z-index:2;
+			border:2px solid white;
+			transition:2s;
+		}
+		li:hover{
+			transform: scale(2);
+			z-index:5;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<script>
+	var aLi=document.querySelectorAll('li');
+	for (var i = 0; i < aLi.length; i++) {
+		aLi[i].style.backgroundImage=`url(images/0${i+1}.gif)`;
+	}
+	</script>
+</body>
+</html>

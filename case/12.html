@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>简易瀑布流</title>
+<style>
+	*{ margin:0; padding:0; list-style:none;}
+	ul{width:300px; /*border:1px solid #000;*/ float:left; margin:10px;}
+	ul li{ width:280px; margin:10px;}
+</style>
+<script>
+	function rnd(n,m){
+		return parseInt(Math.random()*(m-n)+n);	
+	}
+	function createLi(){
+		var oLi=document.createElement('li');
+		var oImg=document.createElement('img');
+		oLi.appendChild(oImg);
+		//oLi.style.height= rnd(150,600)+'px';
+		oImg.style.width='100%';
+		//oImg.style.height='100%';
+		oImg.src='imgs/'+rnd(1,20)+'.jpg';
+		return oLi;	
+	}
+	window.onload=function(){
+		var oUl=document.getElementsByTagName('ul');
+		
+		function creatLi20(){
+			for(var i=0;i<20;i++){
+				var oLi=createLi();
+				var arrUl=[];
+				for(var j=0;j<oUl.length;j++){
+					arrUl.push(oUl[j]);	
+				}
+				
+				arrUl.sort(function(ul1,ul2){
+					return ul1.offsetHeight-ul2.offsetHeight	
+				});
+				
+				arrUl[0].appendChild(oLi);	
+			}		
+		}
+		
+		creatLi20();
+		
+		window.onresize=window.onscroll=function(){
+			var clientH=document.documentElement.clientHeight;
+			var scrollT=document.body.scrollTop||document.documentElement.scrollTop;
+			var iCont=document.documentElement.scrollHeight;
+			var scrollB=clientH+scrollT;
+			if(scrollB>=iCont-1000){
+				creatLi20();
+			}	
+		};
+	
+	};
+</script>
+</head>
+
+<body>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+</body>
+</html>
